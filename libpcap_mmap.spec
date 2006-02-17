@@ -25,6 +25,7 @@ Obsoletes:	%{_name}
 Provides:	%{_name}
 Provides:	%{_name}.so.0
 Provides:	%{_name}.so.%{_ver}
+Provides:	%{_name} = 2:0.9.4-1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -83,7 +84,9 @@ Summary(ru):	Хедеры и библиотеки програмиста для libpcap
 Summary(uk):	Хедери та б╕бл╕отеки програм╕ста для libpcap
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Provides:	%{_name}-devel
 Obsoletes:	%{_name}0-devel
+Obsoletes:	%{_name}-devel
 
 %description devel
 Libpcap provides a portable framework for low-level network
@@ -122,6 +125,8 @@ Summary(ru):	Статическая библиотека libpcap
 Summary(uk):	Статична б╕бл╕отека libpcap
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
+Provides:	%{_name}-static
+Obsoletes:	%{_name}-static
 
 %description static
 Libpcap provides a portable framework for low-level network
