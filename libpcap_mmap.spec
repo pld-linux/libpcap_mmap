@@ -84,7 +84,7 @@ Summary(ru):	Хедеры и библиотеки програмиста для libpcap
 Summary(uk):	Хедери та б╕бл╕отеки програм╕ста для libpcap
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Provides:	%{_name}-devel
+Provides:	%{_name}-devel = 2:0.9.4-1
 Obsoletes:	%{_name}0-devel
 Obsoletes:	%{_name}-devel
 
@@ -125,7 +125,7 @@ Summary(ru):	Статическая библиотека libpcap
 Summary(uk):	Статична б╕бл╕отека libpcap
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
-Provides:	%{_name}-static
+Provides:	%{_name}-static = 2:0.9.4-1
 Obsoletes:	%{_name}-static
 
 %description static
