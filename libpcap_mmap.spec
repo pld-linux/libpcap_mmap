@@ -6,10 +6,9 @@ Summary(ru):	ðÒÅÄÏÓÔÁ×ÌÑÅÔ ÄÏÓÔÕÐ Ë ÓÅÔÅ×ÙÍ ÉÎÔÅÒÆÅÊÓÁÍ × promiscuous-ÒÅÖÉÍÅ
 Summary(uk):	îÁÄÁ¤ ÄÏÓÔÕÐ ÄÏ ÍÅÒÅÖÅ×ÉÈ ¦ÎÔÅÒÆÅÊÓ¦× × promiscuous-ÒÅÖÉÍ¦
 %define		_name	libpcap
 %define		_ver	0.9.3
-Name:		%{_name}_mmap
+Name:		libpcap_mmap
 Version:	0.9.20050810b
 Release:	1
-#Epoch:		0
 License:	BSD
 Group:		Libraries
 Source0:	http://public.lanl.gov/cpw/%{_name}-%{version}.tar.gz
@@ -18,14 +17,14 @@ BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake
 BuildRequires:	bison
 BuildRequires:	flex
-# beware of tar 1.13.9[12] madness (tarball contains libpcap-0.8.3/./* paths)
-BuildRequires:	tar >= 1:1.13.93
-Obsoletes:	%{_name}0
-Obsoletes:	%{_name}
-Provides:	%{_name}
-Provides:	%{_name}.so.0
-Provides:	%{_name}.so.%{_ver}
-Provides:	%{_name} = 2:0.9.4-1
+Provides:	libpcap = 2:0.9.4-1
+%ifarch %{x8664} ia64 ppc64 s390x sparc64
+Provides:	libpcap.so.0()(64bit)
+%else
+Provides:	libpcap.so.0
+%endif
+Obsoletes:	libpcap0
+Obsoletes:	libpcap
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -36,7 +35,7 @@ security monitoring, network debugging, etc. Libpcap has
 system-independent API that is used by several applications, including
 tcpdump and arpwatch.
 
-A libpcap version which supports MMAP mode on the linux kernel 
+This libpcap version which supports MMAP mode on the Linux kernel
 2.[46].x.
 
 %description -l es
@@ -51,7 +50,7 @@ ellas tcpdump y arpwatch.
 libpcap to niezale¿ny od systemu interfejs do przechwytywania pakietów
 z poziomu u¿ytkownika.
 
-Wersja ta obs³uguje tryb MMAP obs³ugiwany przez kernele 2.4 i 2.6
+Wersja ta obs³uguje tryb MMAP obs³ugiwany przez j±dra 2.4.x i 2.6.x.
 
 %description -l pt_BR
 A libpcap é uma interface independente de sistema para captura de
@@ -83,10 +82,10 @@ Summary(pt_BR):	Bibliotecas e arquivos de inclusão para a libpcap
 Summary(ru):	èÅÄÅÒÙ É ÂÉÂÌÉÏÔÅËÉ ÐÒÏÇÒÁÍÉÓÔÁ ÄÌÑ libpcap
 Summary(uk):	èÅÄÅÒÉ ÔÁ Â¦ÂÌ¦ÏÔÅËÉ ÐÒÏÇÒÁÍ¦ÓÔÁ ÄÌÑ libpcap
 Group:		Development/Libraries
-Requires:	%{name} = %{epoch}:%{version}-%{release}
-Provides:	%{_name}-devel = 2:0.9.4-1
-Obsoletes:	%{_name}0-devel
-Obsoletes:	%{_name}-devel
+Requires:	%{name} = %{version}-%{release}
+Provides:	libpcap-devel = 2:0.9.4-1
+Obsoletes:	libpcap0-devel
+Obsoletes:	libpcap-devel
 
 %description devel
 Libpcap provides a portable framework for low-level network
@@ -124,9 +123,9 @@ Summary(pt_BR):	Biblioteca estática de desenvolvimento
 Summary(ru):	óÔÁÔÉÞÅÓËÁÑ ÂÉÂÌÉÏÔÅËÁ libpcap
 Summary(uk):	óÔÁÔÉÞÎÁ Â¦ÂÌ¦ÏÔÅËÁ libpcap
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
-Provides:	%{_name}-static = 2:0.9.4-1
-Obsoletes:	%{_name}-static
+Requires:	%{name}-devel = %{version}-%{release}
+Provides:	libpcap-static = 2:0.9.4-1
+Obsoletes:	libpcap-static
 
 %description static
 Libpcap provides a portable framework for low-level network
@@ -155,46 +154,44 @@ Biblioteka statyczna libpcap.
 
 %prep
 %setup -q -n %{_name}-%{version}
-#%patch0 -p1
 
 %build
 cp -f /usr/share/automake/config.sub .
 %{__autoconf}
 %configure \
-	--enable-shared \
-	--prefix=%{_prefix}
+	--enable-shared
 	
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_libdir}
+install -d $RPM_BUILD_ROOT%{_includedir}
+install -d $RPM_BUILD_ROOT%{_includedir}/net
+install -d $RPM_BUILD_ROOT%{_mandir}/man3
+install -d $RPM_BUILD_ROOT%{_docdir}
 
-mkdir -p $RPM_BUILD_ROOT/%{_libdir}
-mkdir -p $RPM_BUILD_ROOT/%{_includedir}
-mkdir -p $RPM_BUILD_ROOT/%{_includedir}/net
-mkdir -p $RPM_BUILD_ROOT/%{_mandir}/man3
-mkdir -p $RPM_BUILD_ROOT/%{_docdir}
+install pcap.3 		$RPM_BUILD_ROOT%{_mandir}/man3
 
-install pcap.3 		$RPM_BUILD_ROOT/%{_mandir}/man3
-
-install pcap.h 		$RPM_BUILD_ROOT/%{_includedir}
-install pcap-bpf.h 	$RPM_BUILD_ROOT/%{_includedir}/net
-install pcap-int.h	$RPM_BUILD_ROOT/%{_includedir}
-install pcap-namedb.h	$RPM_BUILD_ROOT/%{_includedir}
-install pcap-septel.h	$RPM_BUILD_ROOT/%{_includedir}
-install pcap-dag.h	$RPM_BUILD_ROOT/%{_includedir}
-install pcap-ring.h	$RPM_BUILD_ROOT/%{_includedir}
+install pcap.h 		$RPM_BUILD_ROOT%{_includedir}
+install pcap-bpf.h 	$RPM_BUILD_ROOT%{_includedir}/net
+install pcap-int.h	$RPM_BUILD_ROOT%{_includedir}
+install pcap-namedb.h	$RPM_BUILD_ROOT%{_includedir}
+install pcap-septel.h	$RPM_BUILD_ROOT%{_includedir}
+install pcap-dag.h	$RPM_BUILD_ROOT%{_includedir}
+install pcap-ring.h	$RPM_BUILD_ROOT%{_includedir}
 
 # some packages want it... but sanitize somehow
 # (don't depend on HAVE_{STRLCPY,SNPRINTF,VSNPRINTF} defines)
 sed -e '262,268d;271,280d' pcap-int.h > $RPM_BUILD_ROOT%{_includedir}/pcap-int.h
 
-#install doc/pcap.*	$RPM_BUILD_ROOT/%{_docdir}
+#install doc/pcap.*	$RPM_BUILD_ROOT%{_docdir}
 
-install .libs/%{_name}-%{_ver}.so	$RPM_BUILD_ROOT/%{_libdir}
-install .libs/%{_name}.a		$RPM_BUILD_ROOT/%{_libdir}
+# XXX: change SONAME and STOP THIS MADNESS!
+install .libs/%{_name}-%{_ver}.so	$RPM_BUILD_ROOT%{_libdir}
+install .libs/%{_name}.a		$RPM_BUILD_ROOT%{_libdir}
 
-cd $RPM_BUILD_ROOT/%{_libdir}
+cd $RPM_BUILD_ROOT%{_libdir}
 
 mv -f %{_name}-%{_ver}.so 	%{_name}.so.%{_ver}
 ln -s %{_name}.so.%{_ver}	%{_name}.so.0
