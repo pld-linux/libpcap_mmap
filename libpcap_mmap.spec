@@ -13,16 +13,13 @@ License:	BSD
 Group:		Libraries
 Source0:	http://public.lanl.gov/cpw/%{_name}-%{version}.tar.gz
 # Source0-md5:	bfe7a1a9c8b38acef86f114639b150d1
+Patch0:		%{name}-soname.patch
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake
 BuildRequires:	bison
 BuildRequires:	flex
+BuildRequires:	libtool
 Provides:	libpcap = 2:0.9.4-1
-%ifarch %{x8664} ia64 ppc64 s390x sparc64
-Provides:	libpcap.so.0()(64bit)
-%else
-Provides:	libpcap.so.0
-%endif
 Obsoletes:	libpcap0
 Obsoletes:	libpcap
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -154,10 +151,14 @@ Biblioteka statyczna libpcap.
 
 %prep
 %setup -q -n %{_name}-%{version}
+%patch0 -p1
 
 %build
-cp -f /usr/share/automake/config.sub .
+%{__libtoolize}
+%{__aclocal}
 %{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure \
 	--enable-shared
 	
@@ -166,10 +167,8 @@ cp -f /usr/share/automake/config.sub .
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_libdir}
-install -d $RPM_BUILD_ROOT%{_includedir}
 install -d $RPM_BUILD_ROOT%{_includedir}/net
 install -d $RPM_BUILD_ROOT%{_mandir}/man3
-install -d $RPM_BUILD_ROOT%{_docdir}
 
 install pcap.3 		$RPM_BUILD_ROOT%{_mandir}/man3
 
@@ -181,26 +180,11 @@ install pcap-septel.h	$RPM_BUILD_ROOT%{_includedir}
 install pcap-dag.h	$RPM_BUILD_ROOT%{_includedir}
 install pcap-ring.h	$RPM_BUILD_ROOT%{_includedir}
 
+./libtool --mode=install install libpcap.la $RPM_BUILD_ROOT%{_libdir}
+
 # some packages want it... but sanitize somehow
 # (don't depend on HAVE_{STRLCPY,SNPRINTF,VSNPRINTF} defines)
-sed -e '262,268d;271,280d' pcap-int.h > $RPM_BUILD_ROOT%{_includedir}/pcap-int.h
-
-#install doc/pcap.*	$RPM_BUILD_ROOT%{_docdir}
-
-# XXX: change SONAME and STOP THIS MADNESS!
-install .libs/%{_name}-%{_ver}.so	$RPM_BUILD_ROOT%{_libdir}
-install .libs/%{_name}.a		$RPM_BUILD_ROOT%{_libdir}
-
-cd $RPM_BUILD_ROOT%{_libdir}
-
-mv -f %{_name}-%{_ver}.so 	%{_name}.so.%{_ver}
-ln -s %{_name}.so.%{_ver}	%{_name}.so.0
-ln -s %{_name}.so.%{_ver}       %{_name}.so.0.5
-ln -s %{_name}.so.%{_ver}       %{_name}.so.0.6
-ln -s %{_name}.so.%{_ver}       %{_name}.so.0.7
-ln -s %{_name}.so.%{_ver}       %{_name}.so.0.8
-ln -s %{_name}.so.%{_ver}       %{_name}.so.0.9
-ln -s %{_name}.so.%{_ver}	%{_name}.so
+sed -e '279,285d;288,297d' pcap-int.h > $RPM_BUILD_ROOT%{_includedir}/pcap-int.h
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -211,15 +195,15 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES CREDITS LICENSE README README.ring README.linux README.dag README.septel VERSION REVISION doc/pcap.*
-%attr(755,root,root) %{_libdir}/lib*.so.*
+%attr(755,root,root) %{_libdir}/libpcap.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so
+%attr(755,root,root) %{_libdir}/libpcap.so
 %{_includedir}/*.h
 %{_includedir}/net/*.h
 %{_mandir}/man?/*
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libpcap.a
