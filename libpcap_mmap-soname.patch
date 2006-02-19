@@ -1,0 +1,26 @@
+--- libpcap-0.9.20050810b/Makefile.am.orig	2005-08-21 07:07:12.000000000 +0200
++++ libpcap-0.9.20050810b/Makefile.am	2006-02-19 17:15:37.075812000 +0100
+@@ -26,9 +26,9 @@
+ AUTOMAKE_OPTIONS	= foreign no-dependencies
+ 
+ # library versioning 
+-VCURRENT		= 0
+-VREVISION		= 9
+-VAGE			= 2
++VCURRENT		= 9
++VREVISION		= 3
++VAGE			= 9
+ RMAJOR		= 0
+ RMINOR		= 9
+ RREVISION	= 3
+@@ -79,8 +79,8 @@
+ 
+ lib_LTLIBRARIES		= libpcap.la
+ 
+-libpcap_la_LDFLAGS      = -release $(LTRELEASE)
+-#libpcap_la_LDFLAGS      = -version-info $(LTVERSION)
++#libpcap_la_LDFLAGS      = -release $(LTRELEASE)
++libpcap_la_LDFLAGS      = -version-info $(LTVERSION)
+ 
+ dist_man_MANS		= pcap.3.gz
+ 
