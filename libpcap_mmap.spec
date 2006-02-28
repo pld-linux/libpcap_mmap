@@ -1,11 +1,11 @@
+%define		_name	libpcap
+%define		_ver	0.9.3
 Summary:	Libpcap provides promiscuous mode access to network interfaces
 Summary(es):	libpcap ofrece acceso a modo promiscuo en interfaces de red
 Summary(pl):	Libpcap pozwala na bezpo╤redni dostЙp do interfejsСw sieciowych
 Summary(pt_BR):	A libpcap fornece acesso ao modo promМscuo em interfaces de rede
 Summary(ru):	Предоставляет доступ к сетевым интерфейсам в promiscuous-режиме
 Summary(uk):	Нада╓ доступ до мережевих ╕нтерфейс╕в в promiscuous-режим╕
-%define		_name	libpcap
-%define		_ver	0.9.3
 Name:		libpcap_mmap
 Version:	0.9.20050810b
 Release:	1
@@ -20,8 +20,8 @@ BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	libtool
 Provides:	libpcap = 2:0.9.4-1
-Obsoletes:	libpcap0
 Obsoletes:	libpcap
+Obsoletes:	libpcap0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -81,8 +81,8 @@ Summary(uk):	Хедери та б╕бл╕отеки програм╕ста для libpcap
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Provides:	libpcap-devel = 2:0.9.4-1
-Obsoletes:	libpcap0-devel
 Obsoletes:	libpcap-devel
+Obsoletes:	libpcap0-devel
 
 %description devel
 Libpcap provides a portable framework for low-level network
@@ -161,7 +161,7 @@ Biblioteka statyczna libpcap.
 %{__automake}
 %configure \
 	--enable-shared
-	
+
 %{__make}
 
 %install
