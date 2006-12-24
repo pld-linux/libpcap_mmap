@@ -7,12 +7,12 @@ Summary(pt_BR):	A libpcap fornece acesso ao modo promМscuo em interfaces de rede
 Summary(ru):	Предоставляет доступ к сетевым интерфейсам в promiscuous-режиме
 Summary(uk):	Нада╓ доступ до мережевих ╕нтерфейс╕в в promiscuous-режим╕
 Name:		libpcap_mmap
-Version:	0.9.20050810b
+Version:	0.9.20060417
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://public.lanl.gov/cpw/%{_name}-%{version}.tar.gz
-# Source0-md5:	bfe7a1a9c8b38acef86f114639b150d1
+# Source0-md5:	21a2c20583d69a0153863145a7382aec
 Patch0:		%{name}-soname.patch
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake
