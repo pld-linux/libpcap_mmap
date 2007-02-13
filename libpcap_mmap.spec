@@ -1,11 +1,11 @@
 %define		_name	libpcap
 %define		_ver	0.9.3
 Summary:	Libpcap provides promiscuous mode access to network interfaces
-Summary(es.UTF-8):   libpcap ofrece acceso a modo promiscuo en interfaces de red
-Summary(pl.UTF-8):   Libpcap pozwala na bezpośredni dostęp do interfejsów sieciowych
-Summary(pt_BR.UTF-8):   A libpcap fornece acesso ao modo promíscuo em interfaces de rede
-Summary(ru.UTF-8):   Предоставляет доступ к сетевым интерфейсам в promiscuous-режиме
-Summary(uk.UTF-8):   Надає доступ до мережевих інтерфейсів в promiscuous-режимі
+Summary(es.UTF-8):	libpcap ofrece acceso a modo promiscuo en interfaces de red
+Summary(pl.UTF-8):	Libpcap pozwala na bezpośredni dostęp do interfejsów sieciowych
+Summary(pt_BR.UTF-8):	A libpcap fornece acesso ao modo promíscuo em interfaces de rede
+Summary(ru.UTF-8):	Предоставляет доступ к сетевым интерфейсам в promiscuous-режиме
+Summary(uk.UTF-8):	Надає доступ до мережевих інтерфейсів в promiscuous-режимі
 Name:		libpcap_mmap
 Version:	0.9.20060417
 Release:	1
@@ -73,11 +73,11 @@ Libpcap - це системнонезалежний інтерфейс для з
 
 %package devel
 Summary:	Header files and develpment documentation for libpcap
-Summary(es.UTF-8):   Arquivos de cabeçalho e bibliotecas de desenvolvimento para libpcap
-Summary(pl.UTF-8):   Pliki nagłówkowe i dokumetacja do libpcap
-Summary(pt_BR.UTF-8):   Bibliotecas e arquivos de inclusão para a libpcap
-Summary(ru.UTF-8):   Хедеры и библиотеки програмиста для libpcap
-Summary(uk.UTF-8):   Хедери та бібліотеки програміста для libpcap
+Summary(es.UTF-8):	Arquivos de cabeçalho e bibliotecas de desenvolvimento para libpcap
+Summary(pl.UTF-8):	Pliki nagłówkowe i dokumetacja do libpcap
+Summary(pt_BR.UTF-8):	Bibliotecas e arquivos de inclusão para a libpcap
+Summary(ru.UTF-8):	Хедеры и библиотеки програмиста для libpcap
+Summary(uk.UTF-8):	Хедери та бібліотеки програміста для libpcap
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Provides:	libpcap-devel = 2:0.9.4-1
@@ -114,11 +114,11 @@ libpcap.
 
 %package static
 Summary:	Static libpcap library
-Summary(es.UTF-8):   Biblioteca estática usada no desenvolvimento de aplicativos com libpcap
-Summary(pl.UTF-8):   Biblioteka statyczna libpcap
-Summary(pt_BR.UTF-8):   Biblioteca estática de desenvolvimento
-Summary(ru.UTF-8):   Статическая библиотека libpcap
-Summary(uk.UTF-8):   Статична бібліотека libpcap
+Summary(es.UTF-8):	Biblioteca estática usada no desenvolvimento de aplicativos com libpcap
+Summary(pl.UTF-8):	Biblioteka statyczna libpcap
+Summary(pt_BR.UTF-8):	Biblioteca estática de desenvolvimento
+Summary(ru.UTF-8):	Статическая библиотека libpcap
+Summary(uk.UTF-8):	Статична бібліотека libpcap
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Provides:	libpcap-static = 2:0.9.4-1
