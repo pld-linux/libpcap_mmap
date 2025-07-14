@@ -151,7 +151,7 @@ Biblioteka statyczna libpcap.
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 %{__libtoolize}
